@@ -1,0 +1,24 @@
+{
+  "name": "nui-es6",
+  "version": "1.0.0",
+  "description": "nui reconstrctor with nodejs technique",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config config/webpack.config.base.js",
+    "start": "webpack-dev-server --config config/webpack.config.base.js --open",
+    "dev": "webpack-dev-server --config config/webpack.config.dev.js --hot --inline"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.28.10",
+    "file-loader": "^1.1.9",
+    "html-webpack-plugin": "^2.30.1",
+    "json-loader": "^0.5.7",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}

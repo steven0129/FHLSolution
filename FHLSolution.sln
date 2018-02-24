@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechVueTypescript", "TechVu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FHLNUI", "FHLNUI\FHLNUI.csproj", "{52606011-0A03-4AA6-8BA6-A81DAA28A5D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUIES6", "NUIES6\NUIES6.csproj", "{7F20B977-208D-438C-AE79-622B89750612}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{52606011-0A03-4AA6-8BA6-A81DAA28A5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52606011-0A03-4AA6-8BA6-A81DAA28A5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52606011-0A03-4AA6-8BA6-A81DAA28A5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F20B977-208D-438C-AE79-622B89750612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F20B977-208D-438C-AE79-622B89750612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F20B977-208D-438C-AE79-622B89750612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F20B977-208D-438C-AE79-622B89750612}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
