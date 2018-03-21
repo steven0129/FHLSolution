@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --host 0.0.0.0 --config build/webpack.dev.conf.js",
     "start": "npm run dev",
+    "porting": "webpack --config build/webpack.porting.conf.js",
     "build": "node build/build.js"
   },
   "dependencies": {
