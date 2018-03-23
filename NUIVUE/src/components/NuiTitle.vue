@@ -1,5 +1,5 @@
 <template>
-  <div id="fhlTopMenuLeft">
+  <div>
         <img id="logoFHL" src="static/images/FHLLOGO.png" />
         <a id="title">{{title}}&nbsp;<span>{{ version }}</span></a>
       </div>
