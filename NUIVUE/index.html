@@ -2262,8 +2262,22 @@
           rspArr.push(o);
         }, function () {
           var isOld = checkOldNew(ps);
-          var maxRecordCnt = 0;
-          var maxRecordIdx = 0;
+
+          // 恢復本 2018.03 snow add
+          for (j = 0; j < rspArr.length; j++) {
+            if (rspArr[j].version == 'recover') {
+              if (rspArr[j].record[0].sec == 0) {
+                var sec1 = rspArr[j].record[1];
+                var sec0 = rspArr[j].record[0];
+                sec1.bible_text = "(" + sec0.bible_text + ")" + sec1.bible_text;
+
+                rspArr[j].record.shift();
+                --rspArr[j].record_count;
+              }
+              break;
+            }
+          }
+
           rspArr = sortBibleVersion(rspArr, ps);
 
           // nextchap prevchap
@@ -2281,6 +2295,17 @@
             }
           }
 
+          // get maxRecordCnt maxRecordIdx
+          var maxRecordCnt = 0;
+          var maxRecordIdx = 0;
+          for (var i = 0; i < rspArr.length; i++) {
+            if (rspArr[i].record_count > maxRecordCnt) {
+              maxRecordCnt = rspArr[i].record_count;
+              maxRecordIdx = i;
+              //console.log("maxRecordCnt:"+maxRecordCnt+",maxRecordIdx:"+maxRecordIdx);
+            }
+          }
+
           // title
           var dtitle = $('#lecMainTitle');
           dtitle.empty();
@@ -2290,12 +2315,6 @@
               dtitle.append($("<div class=lecContent><div class=versionName>" + o.v_name + "<span class='closeButton' cname='" + "原文直譯" + "'>&#215</span></div></div>"));
             else
               dtitle.append($("<div class=lecContent><div class=versionName>" + o.v_name + "<span class='closeButton' cname='" + o.v_name + "'>&#215</span></div></div>"));
-
-            if (rspArr[i].record_count > maxRecordCnt) {
-              maxRecordCnt = rspArr[i].record_count;
-              maxRecordIdx = i;
-              //console.log("maxRecordCnt:"+maxRecordCnt+",maxRecordIdx:"+maxRecordIdx);
-            }
           }
 
           //var mode = 1;// 原本的. 就切回0
@@ -2360,14 +2379,6 @@
                     var maxR = rspArr[j].record[i]; //原 var maxR = rspArr[maxRecordIdx].record[i];
                     var chap = maxR.chap, sec = maxR.sec;
                     var rec = rspArr[j].record[i]; //原 var rec = getRecord(rspArr[j].record, null, chap, sec);
-
-                    //2018.03 snow add 悔復本 詩篇
-                    if (rspArr[j].version == "recover") {
-                      if (rec.sec == 0)
-                        continue;
-                      if (rec.sec == 1 && i > 0 && rspArr[j].record[i - 1] != null && rspArr[j].record[i - 1].sec == 0)
-                        rec.bible_text = "(" + rspArr[j].record[i - 1].bible_text + ")" + rec.bible_text;
-                    }
 
                     var bibleText = "";
                     if (rec != null)
@@ -2531,7 +2542,6 @@
                       var className = 'verseContent';
                       if (rspArr[j].version == "thv12h" || rspArr[j].version == 'ttvh') // 2018.01 客語特殊字型(太1)
                         className += ' bstw'
-                      console.log(rspArr)
                       onever.append(
                         $("<div ver='" + rspArr[j].version + "' chap=" + chap + " sec=" + sec + " class='lec'><div style='margin: 0px 20px 0px 1px; padding: 7px 0px; height: 100%;'><span class='verseNumber'>" + sec + "</span><span class='" + className + "'>" + bibleText + vname + "</span></div></div>"));
 
