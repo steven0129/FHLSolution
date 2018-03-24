@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "TechVueTypescript"
+		},
+		{
+			"path": "NUIVUE"
 		}
 	],
 	"settings": {}
