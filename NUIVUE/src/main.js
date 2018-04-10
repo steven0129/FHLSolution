@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 
+import HelloTs from './HiTs';
+console.log(new HelloTs().sayHi("Jesus"));
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
