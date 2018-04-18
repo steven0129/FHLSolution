@@ -2,6 +2,7 @@ import FHL from "./../ns-fhl"
 import $ from "jquery"
 /**
  * UrlParameter class 
+ * 用在 信望愛 站 NUI 中, 會是在 FHL.FhlUrlParameter.js 中
  * '#/aaa/bbb' 或 '#aaa/bbb' 皆可. 
  * 在 index.html new 一個全域變數, 例如
   * var urlRouter = new URLParameter()
@@ -11,20 +12,19 @@ import $ from "jquery"
     * 通常會用 $(window).trigger('hashchange') 在初始化trigger一次.
  */
 export default class UrlParameter {
-  result: string[];
-  constructor() {
-    this.result = [];
+  result: string[] = [];
+  constructor() { }
+  public start() {
     this.bindonhashchange();
+    $(window).trigger('hashchange') //initial
   }
   private bindonhashchange() {
     var that = this;
     window.onhashchange = function () {
-      console.log('hi');
       var hash = window.location.hash;
       that.result = that.urlHashParse(hash);
       $(that).trigger('changed');
     }
-    $(window).trigger('hashchange') //initial
   }
   private urlHashParse(hash: string): string[] {
     let resultArray: string[] = [];

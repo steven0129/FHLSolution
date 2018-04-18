@@ -1,12 +1,17 @@
 import STR from './str/ns'
-import CONSTNAT from './constant/ns'
 import './net/ns'
-import { NET } from './net/ns';
+import { NET } from './net/ns'
+import './FhlUrlParameter'
+import FhlUrlParameter from './FhlUrlParameter';
+import './constant/ns'
+import CONSTANT from './constant/ns';
 
 // namespace in fhl directory
 let FHL = {
-    CONSTNAT,
+    CONSTANT,
     NET,
     STR,
+    FhlUrlParameter,
 };
+
 export default FHL;

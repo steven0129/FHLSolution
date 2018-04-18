@@ -7,11 +7,11 @@ import $ from "jquery"
 
 Vue.config.productionTip = false
 
-let urlParameter = new FHL.NET.UrlParameter();
-$(urlParameter).on("changed", function(){
-  let r1 = urlParameter.result;
-  console.log(r1);
+var urlChange = new FHL.FhlUrlParameter();
+$(urlChange).on('bible', function(event,info){
+  console.log(info);
 });
+urlChange.start();
 
 /* eslint-disable no-new */
 new Vue({
