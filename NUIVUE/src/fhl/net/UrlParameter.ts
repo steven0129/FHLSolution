@@ -1,4 +1,5 @@
-import FHL from "./../ns"
+import FHL from "./../ns-fhl"
+import $ from "jquery"
 /**
  * UrlParameter class 
  * '#/aaa/bbb' 或 '#aaa/bbb' 皆可. 
@@ -12,11 +13,13 @@ import FHL from "./../ns"
 export default class UrlParameter {
   result: string[];
   constructor() {
-    this.result = [];  
+    this.result = [];
+    this.bindonhashchange();
   }
-  private bindonhashchange(){
+  private bindonhashchange() {
     var that = this;
     window.onhashchange = function () {
+      console.log('hi');
       var hash = window.location.hash;
       that.result = that.urlHashParse(hash);
       $(that).trigger('changed');
@@ -29,7 +32,5 @@ export default class UrlParameter {
       resultArray.push(r1[2])
     })
     return resultArray;
-
   }
-
 }
