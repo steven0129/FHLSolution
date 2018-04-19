@@ -1,6 +1,6 @@
 import FHL from "./ns-fhl"
 import $ from "jquery"
-let BookName2iBookGlobal: any = {}; //加速用的全域cache
+let BookName2iBookGlobal: any; //加速用的全域cache
 
 /**
  * 新增一個全域變數
@@ -23,7 +23,7 @@ export default class FhlUrlParameter {
     private bindUrlParameterEvent() {
         let that = this;
         $(this._urlParameter).on('changed', function () {
-            console.log('init');
+            console.log(that._urlParameter.result);
             let result = that.parseHashArrayBible(that._urlParameter.result)
             if (result != null) {
                 that.bibleResult.book = result.book != null ? result.book : -1
