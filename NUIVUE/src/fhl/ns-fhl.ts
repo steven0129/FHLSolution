@@ -5,6 +5,7 @@ import './FhlUrlParameter'
 import FhlUrlParameter from './FhlUrlParameter';
 import './constant/ns'
 import CONSTANT from './constant/ns';
+import Enumerable from '../../node_modules/linq/linq';
 
 // namespace in fhl directory
 let FHL = {
@@ -13,5 +14,7 @@ let FHL = {
     STR,
     FhlUrlParameter,
 };
+
+console.log(Enumerable.from(CONSTANT).orderBy(a1=>a1.value).toArray());
 
 export default FHL;

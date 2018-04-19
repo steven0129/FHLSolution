@@ -9,7 +9,7 @@
             "node_modules/@types/"
         ],
         "types": [
-            "jquery",
+            "jquery","linq"
         ],
         "allowSyntheticDefaultImports": true
     }
