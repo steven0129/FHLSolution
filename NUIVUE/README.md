@@ -1,21 +1,23 @@
-# nuies6
+# NUI VueJS化
 
-> A Vue.js project
+## Installation
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+```
+yarn
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Tesing
+
+```
+yarn start
+```
+
+在瀏覽器開啟http://localhost:8080
+
+## Production
+
+```
+yarn build
+```
+
+編譯後網頁放在dist/資料夾底下，開啟index.html即可啟動
