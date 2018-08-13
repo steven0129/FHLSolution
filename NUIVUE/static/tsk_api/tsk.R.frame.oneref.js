@@ -20,16 +20,19 @@ tsk.R = tsk.R || {
       });
       var r = React.createElement("div", {}, rs);
       //var r = React.createElement(sephp.R.txt, { pfn_search_sn: this.props.pfn_search_sn, txt: txt, sn: [] });// r:react Ob:(Old Bible) Frame
-      this.setState({ rDetail: r });
+      this.setState({
+        rDetail: r
+      });
     },
     handleClick: function () {
       if (this.state.rDetail == null) {
         var txt = this.props.txt_ori.trim();
-        var keyword2 = txt.substr(1, txt.length - 2);// 去頭去尾 # |
+        var keyword2 = txt.substr(1, txt.length - 2); // 去頭去尾 # |
         this.pfn_click_oneref(keyword2);
-      }
-      else {
-        this.setState({ rDetail: null });
+      } else {
+        this.setState({
+          rDetail: null
+        });
       }
     },
     getInitialState: function () {
@@ -44,7 +47,7 @@ tsk.R = tsk.R || {
         default_version: "unv",
         isSN: true,
         isGB: false,
-        pfn_search_sn: null
+        pfn_search_sn: null,
       };
     },
     render: function () {
@@ -53,8 +56,7 @@ tsk.R = tsk.R || {
       var pthis = this;
       var txt_ori = this.props.txt_ori;
 
-      var keyword2 = txt_ori;
-      {// 去頭去尾 # |
+      var keyword2 = txt_ori; { // 去頭去尾 # |
         keyword2 = keyword2.trim();
         keyword2 = keyword2.substr(1, keyword2.length - 2);
       }
@@ -76,8 +78,9 @@ tsk.R = tsk.R || {
         default_version: "unv",
         isSN: true,
         isGB: false,
-        cy:640,
-        pfn_search_sn: null
+        cy: 640,
+        pfn_search_sn: null,
+        fontSize: 16, //var strFontSzeStyle = "font-size: " + ps.fontSize + "pt; line-height: " + ps.fontSize * 1.25 + "pt; margin-top: " + (ps.fontSize * 1.25 - 15) + "px";
       };
     },
     render: function () {
@@ -90,8 +93,7 @@ tsk.R = tsk.R || {
         var idx = a2.indexOf("#");
         if (idx == -1) {
           rs.push(React.createElement("div", {}, a2));
-        }
-        else {
+        } else {
           var body = a2.substr(idx, a2.length - idx).trim();
           //console.log(body);
           // "# 2Ki 1:8; Zec 13:4; Mt 3:4|"
@@ -106,7 +108,18 @@ tsk.R = tsk.R || {
           rs.push(r2);
         }
       });
-      return React.createElement("div", { style: { height: this.props.cy, "overflow-y": "auto", "margin":"7px", "margin-top":"7px","margin-right":"7px" } }, rs);
+      return React.createElement("div", {
+        style: {
+          height: this.props.cy,
+          "overflow-y": "auto",
+          "margin": "7px",
+          "margin-top": "7px",
+          "margin-right": "7px",
+          "font-size": this.props.fontSize + "pt",
+          "line-height": this.props.fontSize * 1.25 + "pt",
+          "margin-top": (this.props.fontSize * 1.25 - 15) + "px",
+        }
+      }, rs);
     }
   })
 };

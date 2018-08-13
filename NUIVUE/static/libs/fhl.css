@@ -1548,14 +1548,9 @@ nav#fhlTopMenu {
 }
 
 #fhlInfoContent span.parsing{
-    font-size: 16pt;
-    line-height: 32pt;
+    /* font-size: 16pt;
+    line-height: 32pt; */
     cursor: pointer;
-}
-
-#fhlInfoContent span.parsing{
-    font-size: 16pt;
-    line-height: 32pt;
 }
 
 .commentSecBack{
