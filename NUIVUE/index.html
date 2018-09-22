@@ -1177,82 +1177,90 @@
         $('#imageToolOnOffSwitch').attr("checked", ps.ispho);
       }
     };
+    function renderTsk(ps){
+      if ( ps.titleId == "fhlInfoTsk" ){
+        var dom2 = document.getElementById("fhlInfoContent");
+          if (dom2 != null) {
+            var pfn_search_sn = function (sn) {
+              doSearch(sn, ps, false);
+            };
+
+            var jret = tsk.tskapi(ps.engs, ps.chap, ps.sec, ps.gb ? true : false);
+            var r = React.createElement(tsk.R.frame, {
+              txt_ori: jret.record[0].com_text,
+              default_book: ps.engs,
+              default_version: "unv",
+              isSN: ps.strong == 1 ? true : false,
+              isGB: ps.gb ? true : false,
+              cy: $(dom2).height(),
+              pfn_search_sn: pfn_search_sn, //指定按下sn的結果
+              fontSize: ps.fontSize, //
+            });
+            React.render(r, dom2);
+            var renderobj = React.render(r, dom2);
+          }
+      }
+    }
+    function makeSureSizeBetween6and60(){
+      if ($('#fhlLectureFontSize').val() > 60)
+        $('#fhlLectureFontSize').val(60);
+      else if ($('#fhlLectureFontSize').val() < 6)
+        $('#fhlLectureFontSize').val(6);
+    }
+    function onFontSizeToolSizeChanged(sz,ps){
+      // sz: parseInt($('#fhlLectureFontSize').val())
+      $('#fhlLectureFontSizeSliderBar').val(sz);
+
+      $('#fhlLecture .lec').css({
+        'font-size': sz + 'pt',
+        'line-height': sz * 1.25 + 'pt',
+        'margin': sz * 1.25 - 15 + 'px 0px'
+      });
+      $('#commentScrollDiv').css({
+        'font-size': $('#fhlLectureFontSize').val() + 'pt',
+        'line-height': sz * 1.25 + 'pt',
+        'margin': sz * 1.25 - 15 + 'px 0px'
+      });
+      $('#fhlInfoContent .parsingTop').css({
+        'font-size': $('#fhlLectureFontSize').val() + 'pt',
+        'line-height': sz * 1.25 + 'pt',
+        'margin': sz * 1.25 - 15 + 'px 0px'
+      });
+      $('#fhlLecture .lecContent.bhs.hebrew').css({
+        'font-size': (sz + 6) + 'pt',
+        'line-height': (sz + 6) * 1.25 + 'pt',
+        'margin': sz * 1.25 - 15 + 'px 0px'
+      });
+      ps.fontSize = sz;
+      renderTsk(ps);
+    }
     var fontSizeTool = {
       init: function (ps, dom) {
         this.dom = dom;
         this.render(ps, this.dom);
       },
       registerEvents: function (ps) {
-
-
         $('#fhlLectureFontSizeSliderBar').change(function () {
           $("#fhlLectureFontSize").val($('#fhlLectureFontSizeSliderBar').val());
-          $('#fhlLecture .lec').css({
-            'font-size': $('#fhlLectureFontSize').val() + 'pt',
-            'line-height': parseInt($('#fhlLectureFontSize').val()) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          $('#fhlLecture .lecContent.bhs.hebrew').css({
-            'font-size': (parseInt($('#fhlLectureFontSize').val()) + 6) + 'pt',
-            'line-height': parseInt($('#fhlLectureFontSize').val()) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          ps.fontSize = parseInt($('#fhlLectureFontSize').val());
+          makeSureSizeBetween6and60();
+          onFontSizeToolSizeChanged(parseInt($('#fhlLectureFontSize').val()),ps); 
           fhlLecture.reshape(ps);//show add, 經文排整齊
         });
         $('#fhlLectureFontSize').change(function () {
-          if ($('#fhlLectureFontSize').val() > 60)
-            $('#fhlLectureFontSize').val(60);
-          else if ($('#fhlLectureFontSize').val() < 6)
-            $('#fhlLectureFontSize').val(6);
-          $('#fhlLectureFontSizeSliderBar').val($('#fhlLectureFontSize').val());
-          $('#fhlLecture .lec').css({
-            'font-size': $('#fhlLectureFontSize').val() + 'pt',
-            'line-height': parseInt($('#fhlLectureFontSize').val()) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          $('#fhlLecture .lecContent.bhs.hebrew').css({
-            'font-size': (parseInt($('#fhlLectureFontSize').val()) + 6) + 'pt',
-            'line-height': (parseInt($('#fhlLectureFontSize').val()) + 6) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          ps.fontSize = parseInt($('#fhlLectureFontSize').val());
+          makeSureSizeBetween6and60();
+          onFontSizeToolSizeChanged(parseInt($('#fhlLectureFontSize').val()),ps);            
           fhlLecture.reshape(ps);//show add, 經文排整齊
         });
         $('#fhlLectureFontSizeSmaller').click(function () {
           $('#fhlLectureFontSize').val(parseInt($('#fhlLectureFontSize').val()) - 2);
-          if ($('#fhlLectureFontSize').val() <= 6)
-            $('#fhlLectureFontSize').val(6);
-          $("#fhlLectureFontSizeSliderBar").val($('#fhlLectureFontSize').val());
-          $('#fhlLecture .lec').css({
-            'font-size': $('#fhlLectureFontSize').val() + 'pt',
-            'line-height': parseInt($('#fhlLectureFontSize').val()) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          $('#fhlLecture .lecContent.bhs.hebrew').css({
-            'font-size': (parseInt($('#fhlLectureFontSize').val()) + 6) + 'pt',
-            'line-height': (parseInt($('#fhlLectureFontSize').val()) + 6) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          ps.fontSize = parseInt($('#fhlLectureFontSize').val());
+          makeSureSizeBetween6and60();
+          onFontSizeToolSizeChanged(parseInt($('#fhlLectureFontSize').val()),ps);
           fhlLecture.reshape(ps);//show add, 經文排整齊
         });
         $('#fhlLectureFontSizeLarger').click(function () {
           $('#fhlLectureFontSize').val(parseInt($('#fhlLectureFontSize').val()) + 2);
-          if ($('#fhlLectureFontSize').val() >= 60)
-            $('#fhlLectureFontSize').val(60);
-          $("#fhlLectureFontSizeSliderBar").val($('#fhlLectureFontSize').val());
-          $('#fhlLecture .lec').css({
-            'font-size': $('#fhlLectureFontSize').val() + 'pt',
-            'line-height': parseInt($('#fhlLectureFontSize').val()) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          $('#fhlLecture .lecContent.bhs.hebrew').css({
-            'font-size': (parseInt($('#fhlLectureFontSize').val()) + 6) + 'pt',
-            'line-height': (parseInt($('#fhlLectureFontSize').val()) + 6) * 1.25 + 'pt',
-            'margin': parseInt($('#fhlLectureFontSize').val()) * 1.25 - 15 + 'px 0px'
-          });
-          ps.fontSize = parseInt($('#fhlLectureFontSize').val());
+          makeSureSizeBetween6and60();
+          onFontSizeToolSizeChanged(parseInt($('#fhlLectureFontSize').val()),ps);
           fhlLecture.reshape(ps);//show add, 經文排整齊
         });
       },
@@ -3318,7 +3326,8 @@
                 var ptg = "";
                 if (N == 0)
                   ptg = "<td class=\"g0\">詞性</td>";
-                var headDivStyle = "<div style=\"position: absolute; left: 0px; right: 0px; top: 0px; height: 200px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; overflow:auto; padding: 30px 50px 10px; box-shadow: inset 0px -4px 7px #808080; font-size: 12pt; line-height: 18pt;" + ((N == 1) ? "text-align:right;" : "") +
+                  var strFontSizeStyle = "font-size: " + ps.fontSize + "pt; line-height: " + ps.fontSize * 1.25 + "pt; margin-top: " + (ps.fontSize * 1.25 - 15) + "px";
+                  var headDivStyle = "<div class='parsingTop' style=\"position: absolute; left: 0px; right: 0px; top: 0px; height: 200px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; overflow:auto; padding: 30px 50px 10px; box-shadow: inset 0px -4px 7px #808080;"+ strFontSizeStyle +";" + ((N == 1) ? "text-align:right;" : "") +
                   "\">";
 
                 var html = chap_ctrl_str + headDivStyle + head_str + "</div><div id='parsingTable' style=\"position: absolute; top: 212px; left: 0px; right: 0px; bottom: 0px; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; overflow:auto;box-shadow: inset 0px 4px 7px #808080;\"><table border=\"1\">" + "<tr><td class=\"g0\">原文字</td><td class=\"g0\">SN</td>" + ptg + "<td class=\"g0\">字彙分析</td><td class=\"g0\">原型</td><td class=\"g0\">原型簡義</td><td class=\"g0\">備註</td>" + body_str + "</table></div>";
@@ -3462,7 +3471,8 @@
                   var html = jsonObj.record[0].com_text; //注釋內文
 
                   html = parseComment(html);
-                  html = "<div style='position: static; padding: 0px; top: 0px; bottom: 0px; overflow: auto;'>" + head_str + '<div id="commentContent">' + control_str + "<div id='commentScrollDiv' style='position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; padding: 80px 10px 70px; overflow: auto;'>" + html + "</div></div></div>";
+                  var strFontSizeStyle = "font-size: " + ps.fontSize + "pt; line-height: " + ps.fontSize * 1.25 + "pt; margin-top: " + (ps.fontSize * 1.25 - 15) + "px";
+                  html = "<div style='position: static; padding: 0px; top: 0px; bottom: 0px; overflow: auto;'>" + head_str + '<div id="commentContent">' + control_str + "<div id='commentScrollDiv' style='"+strFontSizeStyle+";position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; padding: 80px 10px 70px; overflow: auto;'>" + html + "</div></div></div>";
                   dom.html(html);
                 }
                 else {
@@ -3478,28 +3488,7 @@
             break;
           case "fhlInfoTsk":
             // 串珠 snow
-            {
-              var dom2 = document.getElementById("fhlInfoContent");
-              if (dom2 != null) {
-                var pfn_search_sn = function (sn) {
-                  doSearch(sn, ps, false);
-                };
-
-                var jret = tsk.tskapi(ps.engs, ps.chap, ps.sec, ps.gb ? true : false);
-                var r = React.createElement(tsk.R.frame, {
-                  txt_ori: jret.record[0].com_text,
-                  default_book: ps.engs,
-                  default_version: "unv",
-                  isSN: ps.strong == 1 ? true : false,
-                  isGB: ps.gb ? true : false,
-                  cy: $(dom2).height(),
-                  pfn_search_sn: pfn_search_sn //指定按下sn的結果
-                });
-                React.render(r, dom2);
-                var renderobj = React.render(r, dom2);
-              }
-            }
-            //dom.html("<div style='position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); '>施工中...</div>");
+            renderTsk(ps);
             break;
           case "fhlInfoOb":
             // 典藏 snow
